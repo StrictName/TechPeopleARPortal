@@ -7,16 +7,12 @@ const Entry = (props) => {
       <td className="border-2 border-solid align-top p-2">{props.text}</td>
       <td className="border-2 border-solid w-24">
         <a
-          href={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(
-            props.pokemon
-          )}.png`}
+          href={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${props.pokemon}.png`}
           download
         >
           <img
-            className="w-full"
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(
-              props.pokemon
-            )}.png`}
+            className="w-full p-2"
+            src={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${props.pokemon}.png`}
           />
         </a>
         <p className="text-center text-sm -mt-4">Click to download</p>

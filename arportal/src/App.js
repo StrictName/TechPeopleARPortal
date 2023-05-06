@@ -11,10 +11,6 @@ function App() {
   const [entries, setEntries] = useState([]);
   const [userIdGet, setUserIdGet] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("Changed");
-  // }, entries);
-
   const handleUserIdChange = (event) => {
     setUserId(event.target.value);
   };
@@ -27,9 +23,15 @@ function App() {
     setText(event.target.value);
   };
 
+  const parseInteger = (num) => {
+    let str = num.toString();
+    str = str.padStart(3, "0");
+    return str;
+  };
+
   const add = async () => {
     const usersRef = collection(firebaseConfig.db, "entries");
-    const pokemonNum = Math.floor(Math.random() * 151);
+    const pokemonNum = Math.floor(Math.random() * 700);
 
     try {
       const docRef = await addDoc(usersRef, {
@@ -89,14 +91,14 @@ function App() {
           <div className="">
             <p className="mb-3 text-center">Given Pokemon Index: {pokemon}</p>
             <a
-              href={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(
+              href={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${parseInteger(
                 pokemon
               )}.png`}
               download
             >
               <img
-                className="w-full"
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(
+                className="w-full max-w-xs"
+                src={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${parseInteger(
                   pokemon
                 )}.png`}
               />
@@ -135,7 +137,7 @@ function App() {
                   <Entry
                     userId={entry.user_id}
                     text={entry.text}
-                    pokemon={entry.pokemon}
+                    pokemon={parseInteger(entry.pokemon)}
                   />
                 );
               })
