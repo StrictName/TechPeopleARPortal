@@ -1,11 +1,11 @@
 const Entry = (props) => {
   return (
     <tr className="">
-      <td className="border-2 border-solid w-3 text-center p-2">
+      <td className="border-2 border-solid border-stone-500 w-3 text-center p-2">
         {props.userId}
       </td>
-      <td className="border-2 border-solid align-top p-2">{props.text}</td>
-      <td className="border-2 border-solid w-24">
+      <td className="border-2 border-solid border-stone-500 align-top p-2">{props.text}</td>
+      <td className="border-2 border-solid border-stone-500 w-24">
         <a
           href={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${props.pokemon}.png`}
           download

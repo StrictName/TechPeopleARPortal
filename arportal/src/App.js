@@ -1,6 +1,8 @@
 import firebaseConfig from "./firebaseconfig";
 import React, { useEffect, useState } from "react";
 import Entry from "./Components/Entry";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 import { collection, addDoc, getDocs, where, query } from "firebase/firestore"; // import collection and addDoc functions from Firestore
 
@@ -67,29 +69,37 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col p-3">
-      <h1 className="text-center mb-4">TechPeople AR Portal</h1>
+    <div className="flex flex-col">
+      <Header />
 
-      <input
-        value={userId}
-        onChange={handleUserIdChange}
-        placeholder="User Id"
-        className="w-1/2 mb-3 h-7 p-1 border rounded-sm"
-      />
-      <input
-        value={text}
-        onChange={handleTextChange}
-        placeholder="Text"
-        className="w-1/2 mb-3 h-7 p-1 border rounded-sm"
-      />
 
-      <button className="w-14 border rounded-sm h-6 mb-3" onClick={() => add()}>
-        Send
-      </button>
-      <div className="flex justify-center mb-6">
+      <div className="bg-[#094B83] flex flex-col py-8 w-screen">
+        <p className="self-center text-white p-3"> Enter a new ID with its corresponding text</p>
+        <input
+          value={userId}
+          onChange={handleUserIdChange}
+          placeholder="User Id"
+          className=" w-1/2 mb-3 h-8 p-2 border rounded self-center "
+        /> 
+
+        <input
+          value={text}
+          onChange={handleTextChange}
+          placeholder="Text"
+          className="w-1/2 mb-3 h-8 p-2 border rounded self-center"
+        />
+
+        <button className="bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded self-center border-white" onClick={() => add()}>
+          Send
+        </button>
+        
+       </div>
+
+
+      <div className="flex justify-center mb-6 bg-[#094B83] w-screen">
         {pokemon !== 0 ? (
           <div className="">
-            <p className="mb-3 text-center">Given Pokemon Index: {pokemon}</p>
+            <p className="mb-3 text-center text-white font-semibold">Given Pokemon Index: {pokemon}</p>
             <a
               href={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${parseInteger(
                 pokemon
@@ -103,33 +113,38 @@ function App() {
                 )}.png`}
               />
             </a>
-            <p className="text-sm text-center"> Click image to download it </p>
+            <p className="text-sm text-center text-white"> Click image to download it </p>
           </div>
         ) : (
-          <p className="text-center">Send data to get Pokemon</p>
+        <p className="text-center text-white "> Click 'Send' to get a Pokemon</p>
         )}
       </div>
-      <div className="flex flex-col">
-        <div>
+
+      <div className="flex flex-col ">
+        
+        <div className="flex flex-col place-items-center ">
+        <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base ">Enter the ID from which you want to obtain information</p>
           <input
             value={userIdGet === 0 ? "" : userIdGet}
             onChange={handleUserIdGetChange}
             placeholder="User Id"
-            className="w-1/4 mb-3 h-6 p-1 border rounded-sm mr-3"
+            className="w-1/4 mb-3 h-8  border rounded mr-3 px-3 justify-center"
           />
           <button
-            className="w-20 border rounded-sm h-6 mb-3"
+            className=" bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded border-white "
             onClick={() => get()}
           >
             Get Data
           </button>
+
+
         </div>
 
         {entries.length !== 0 ? (
-          <table className="border-2 border-solid border-collapse">
-            <th className="border-2 border-solid">User ID</th>
-            <th className="border-2 border-solid">Text</th>
-            <th className="border-2 border-solid">Image</th>
+          <table className="border-2 border-solid border-collapse border-stone-500 bg-[#f7f5f5] mt-5 mx-5">
+            <th className="border-1 border-solid border-stone-500">User ID</th>
+            <th className="border-1 border-solid border-stone-500">Text</th>
+            <th className="border-1 border-solid border-stone-500">Image</th>
 
             {entries.length !== 0 ? (
               entries.map((entry) => {
@@ -149,6 +164,7 @@ function App() {
           <></>
         )}
       </div>
+      
     </div>
   );
 }
