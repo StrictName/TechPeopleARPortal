@@ -5,7 +5,14 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Login from "./Components/Login";
 
-import { collection, addDoc, getDocs, where, query } from "firebase/firestore"; // import collection and addDoc functions from Firestore
+import {
+  collection,
+  addDoc,
+  setDoc,
+  getDocs,
+  where,
+  query,
+} from "firebase/firestore"; // import collection and addDoc functions from Firestore
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -38,7 +45,7 @@ function App() {
 
     try {
       const docRef = await addDoc(usersRef, {
-        user_id: parseInt(userId),
+        user_id: localStorage.getItem("UI"),
         text: text,
         pokemon: pokemonNum,
       });
@@ -55,12 +62,17 @@ function App() {
     const entriesRef = collection(firebaseConfig.db, "entries");
     console.log(userIdGet);
 
-    const q = query(entriesRef, where("user_id", "==", parseInt(userIdGet)));
+    const q = query(
+      entriesRef,
+      where("user_id", "==", localStorage.getItem("UI"))
+    );
     console.log(userIdGet);
-    const querySnapshot =
-      userIdGet === "" || userIdGet === 0
-        ? await getDocs(entriesRef)
-        : await getDocs(q);
+    // const querySnapshot =
+    //   userIdGet === "" || userIdGet === 0
+    //     ? await getDocs(entriesRef)
+    //     : await getDocs(q);
+
+    const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().text}`);
@@ -75,16 +87,20 @@ function App() {
       <Header />
 
       <div className="bg-[#094B83] flex flex-col py-8 w-screen">
+        <p className="self-center text-white p-3 text-2xl">
+          {" "}
+          Welcome {localStorage.getItem("DN")}
+        </p>
         <p className="self-center text-white p-3">
           {" "}
           Enter a new ID with its corresponding text
         </p>
-        <input
+        {/* <input
           value={userId}
           onChange={handleUserIdChange}
           placeholder="User Id"
           className=" w-1/2 mb-3 h-8 p-2 border rounded self-center "
-        />
+        /> */}
 
         <input
           value={text}
@@ -138,12 +154,12 @@ function App() {
           <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base ">
             Enter the ID from which you want to obtain information
           </p>
-          <input
+          {/* <input
             value={userIdGet === 0 ? "" : userIdGet}
             onChange={handleUserIdGetChange}
             placeholder="User Id"
             className="w-1/4 mb-3 h-8  border rounded mr-3 px-3 justify-center"
-          />
+          /> */}
           <button
             className=" bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded border-white "
             onClick={() => get()}

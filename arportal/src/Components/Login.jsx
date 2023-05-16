@@ -11,7 +11,10 @@ const Login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(token, user);
+        console.log(user);
+        localStorage.setItem("UI", user.uid);
+        localStorage.setItem("DN", user.displayName);
+
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
