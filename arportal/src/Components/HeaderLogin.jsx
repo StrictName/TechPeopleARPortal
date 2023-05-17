@@ -15,11 +15,7 @@ const Header = () => {
           TechPeople AR Portal
         </h1>
       </div>
-      <div className="flex items-center justify-end">
-        <button className="bg-[#094B83] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded">
-          Logout
-        </button>
-      </div>
+      
     </header>
   );
 };

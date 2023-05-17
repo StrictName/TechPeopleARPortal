@@ -1,9 +1,7 @@
 const Entry = (props) => {
   return (
     <tr className="">
-      <td className="border-2 border-solid border-stone-500 w-3 text-center p-2">
-        {props.userId}
-      </td>
+      
       <td className="border-2 border-solid border-stone-500 align-top p-2">{props.text}</td>
       <td className="border-2 border-solid border-stone-500 w-24">
         <a
