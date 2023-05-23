@@ -1,9 +1,8 @@
 import firebaseConfig from "../firebaseconfig";
 import React, { useEffect, useState } from "react";
 import Entry from "./Entry";
-import Header from "./Header"
-
-
+import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 import {
   collection,
@@ -20,6 +19,18 @@ function Home() {
   const [pokemon, setPokemon] = useState(0);
   const [entries, setEntries] = useState([]);
   const [userIdGet, setUserIdGet] = useState(0);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("UI") == null ||
+      localStorage.getItem("DN") == null
+    ) {
+      setTimeout(() => {
+        return navigate("/signup");
+      }, 1000);
+    }
+  }, []);
 
   const handleUserIdChange = (event) => {
     setUserId(event.target.value);
@@ -83,9 +94,7 @@ function Home() {
 
   return (
     <div className="flex flex-col">
-     
       <Header />
-
       <div className="bg-[#094B83] flex flex-col py-8 w-screen">
         <p className="self-center text-white p-3 text-2xl">
           {" "}
@@ -116,7 +125,6 @@ function Home() {
           Send
         </button>
       </div>
-
       <div className="flex justify-center mb-6 bg-[#094B83] w-screen">
         {pokemon !== 0 ? (
           <div className="">
@@ -148,7 +156,6 @@ function Home() {
           </p>
         )}
       </div>
-
       <div className="flex flex-col ">
         <div className="flex flex-col place-items-center ">
           <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base ">
@@ -195,4 +202,3 @@ function Home() {
 }
 
 export default Home;
-
