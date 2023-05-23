@@ -177,8 +177,8 @@ function Home() {
 
         {entries.length !== 0 ? (
           <table className=" border-collapse  bg-[#f7f5f5] mt-25 mx-5  w-full max-w-3xl mx-auto">
-            <th className=" bg-slate-700 text-slate-50 text-left p-2 ">Data</th>
-            <th className=" bg-slate-700 text-slate-50 text-left p-2">Image</th>
+            <th className=" bg-[#545454] text-slate-50 text-left p-2 ">Data</th>
+            <th className=" bg-[#545454] text-slate-50 text-left p-2">Image</th>
 
             {entries.length !== 0 ? (
               entries.map((entry, index) => {

@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center py-4 px-6 w-screen bg-[#f7f5f5] ">
       <img
-        className="h-24 w-24 "
+        className="md:h-24 md:w-24 h-16 w-16 "
         src={logo}
         alt="Logo"
         onClick={() => navigate("/")}
