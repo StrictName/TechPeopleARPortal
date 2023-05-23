@@ -96,7 +96,7 @@ function Home() {
     <div className="flex flex-col">
       <Header />
       <div className="bg-[#094B83] flex flex-col py-8 w-screen">
-        <p className="self-center text-white p-3 text-2xl">
+        <p className="self-center text-white p-3 text-2xl text-center">
           {" "}
           Welcome {localStorage.getItem("DN")}
         </p>
@@ -138,7 +138,7 @@ function Home() {
               download
             >
               <img
-                className="w-full max-w-xs"
+                className="w-full max-w-xs p-4"
                 src={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${parseInteger(
                   pokemon
                 )}.png`}
@@ -156,9 +156,9 @@ function Home() {
           </p>
         )}
       </div>
-      <div className="flex flex-col ">
+      <div className="flex flex-col p-4 ">
         <div className="flex flex-col place-items-center ">
-          <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base ">
+          <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base text-center mb-2 ">
             Enter the ID from which you want to obtain information
           </p>
           {/* <input
@@ -168,7 +168,7 @@ function Home() {
             className="w-1/4 mb-3 h-8  border rounded mr-3 px-3 justify-center"
           /> */}
           <button
-            className=" bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded border-white "
+            className=" bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded border-white mb-6 "
             onClick={() => get()}
           >
             Get Data
@@ -176,14 +176,15 @@ function Home() {
         </div>
 
         {entries.length !== 0 ? (
-          <table className="border-2 border-solid border-collapse border-stone-500 bg-[#f7f5f5] mt-25 mx-5">
-            <th className="border-1 border-solid border-stone-500">Data</th>
-            <th className="border-1 border-solid border-stone-500">Image</th>
+          <table className=" border-collapse  bg-[#f7f5f5] mt-25 mx-5  w-full max-w-3xl mx-auto">
+            <th className=" bg-slate-700 text-slate-50 text-left p-2 ">Data</th>
+            <th className=" bg-slate-700 text-slate-50 text-left p-2">Image</th>
 
             {entries.length !== 0 ? (
-              entries.map((entry) => {
+              entries.map((entry, index) => {
                 return (
                   <Entry
+                    even={index % 2 == 0}
                     text={entry.text}
                     pokemon={parseInteger(entry.pokemon)}
                   />

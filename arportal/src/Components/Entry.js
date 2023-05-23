@@ -1,9 +1,18 @@
 const Entry = (props) => {
   return (
     <tr className="">
-      
-      <td className="border-2 border-solid border-stone-500 align-top p-2">{props.text}</td>
-      <td className="border-2 border-solid border-stone-500 w-24">
+      <td
+        className={`align-top p-4 ${
+          props.even ? "bg-indigo-100" : "bg-indigo-200"
+        }`}
+      >
+        {props.text}
+      </td>
+      <td
+        className={` p-2 w-24 md:w-32 ${
+          props.even ? "bg-indigo-100" : "bg-indigo-200"
+        }`}
+      >
         <a
           href={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${props.pokemon}.png`}
           download
