@@ -18,6 +18,8 @@ function Home() {
   const [text, setText] = useState("");
   const [pokemon, setPokemon] = useState(0);
   const [entries, setEntries] = useState([]);
+  const [entriesIds, setEntriesIds] = useState([]);
+
   const [userIdGet, setUserIdGet] = useState(0);
   let navigate = useNavigate();
 
@@ -88,6 +90,7 @@ function Home() {
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().text}`);
       setEntries((entries) => [...entries, doc.data()]);
+      setEntriesIds((entriesIds) => [...entriesIds, doc.id]);
     });
     console.log(entries);
   };
@@ -186,6 +189,7 @@ function Home() {
                   <Entry
                     even={index % 2 == 0}
                     text={entry.text}
+                    docId={entriesIds[index]}
                     pokemon={parseInteger(entry.pokemon)}
                   />
                 );
