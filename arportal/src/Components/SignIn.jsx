@@ -2,6 +2,8 @@ import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Header from "./HeaderLogin";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -25,11 +27,29 @@ const SignIn = () => {
         localStorage.setItem("DN", user.email);
         setSubmitResponse("Successful Sign In");
         console.log(user);
+        toast.success(" Successful sign in", {
+          position: "top-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          progress: undefined,
+          theme: "colored",
+        });
         setTimeout(() => {
           return navigate("/home");
         }, 1500);
       })
       .catch((error) => {
+        toast.error("Error on sign in", {
+          position: "top-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          progress: undefined,
+          theme: "colored",
+        });
         console.log(error);
         setSubmitResponse(error.message);
       });
@@ -38,6 +58,18 @@ const SignIn = () => {
   return (
     <div>
       <Header />
+      <ToastContainer
+        position="top-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="flex flex-col py-8 bg-[#539ddb]  w-10/12 items-center mx-auto mt-20 border-2 rounded-md">
         <h1 className="md:text-4xl sm:text-3xl text-xl mb-5 text-[#f7f5f5]">
           Log In
