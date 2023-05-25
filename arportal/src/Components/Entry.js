@@ -59,10 +59,10 @@ const Entry = (props) => {
         <div className="flex justify-between h-full flex-wrap">
           <input
             value={text}
-            className="bg-transparent outline-none border-none"
+            className="bg-transparent outline-none border-none w-4/5"
             onChange={(e) => handleTextChange(e)}
           />
-          <div className="mr-2">
+          <div className="w-1/5">
             <button
               onClick={() => updateEntry()}
               className="mr-2 rounded border-indigo-100 px-2 py-1 outline-none"
