@@ -8,7 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Response after Sign in
   const [submitResponse, setSubmitResponse] = useState("");
+
   let navigate = useNavigate();
 
   const handleEmailChange = (event) => {
@@ -18,15 +20,17 @@ const SignIn = () => {
     setPassword(event.target.value);
   };
 
+  // Firebase Auth method
   const submitSignIn = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        // Storing credentials to save log in
         const user = userCredential.user;
         localStorage.setItem("UI", user.uid);
         localStorage.setItem("DN", user.email);
         setSubmitResponse("Successful Sign In");
-        console.log(user);
+
         toast.success(" Successful sign in", {
           position: "top-left",
           autoClose: 1500,
@@ -104,7 +108,6 @@ const SignIn = () => {
           Log In
         </button>
         {/* Success or failure message */}
-
         <p className="m-5  md:text-base text-xs p-5">{submitResponse}</p>
       </div>
     </div>

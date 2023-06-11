@@ -8,7 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Response after sign up
   const [submitResponse, setSubmitResponse] = useState("");
+
   let navigate = useNavigate();
 
   const handleEmailChange = (event) => {
@@ -19,14 +21,17 @@ const SignUp = () => {
   };
 
   const submitSignUp = () => {
+    // Firebase Auth method
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        // Information extracted from Firebase profile
+        // Email chosen because not all users have display_name
         localStorage.setItem("UI", user.uid);
         localStorage.setItem("DN", user.email);
         setSubmitResponse("Successful Sign Up");
-        console.log(user);
+
         toast.success(" Successful sign up", {
           position: "top-left",
           autoClose: 1500,

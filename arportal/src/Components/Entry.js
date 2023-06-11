@@ -1,16 +1,6 @@
 import { useState } from "react";
 import firebaseConfig from "../firebaseconfig";
-import {
-  collection,
-  addDoc,
-  setDoc,
-  getDocs,
-  where,
-  query,
-  doc,
-  set,
-  deleteDoc,
-} from "firebase/firestore"; // import collection and addDoc functions from Firestore
+import { setDoc, doc, deleteDoc } from "firebase/firestore";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,13 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 const Entry = (props) => {
   const [text, setText] = useState(props.text);
   const [deleted, setDeleted] = useState(false);
+
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
 
+  // Update entry from Firestore based on Id
   const updateEntry = async () => {
     const docRef = doc(firebaseConfig.db, "entries", props.docId);
-
     try {
       const response = await setDoc(
         docRef,
@@ -57,6 +48,7 @@ const Entry = (props) => {
     }
   };
 
+  // Delete entry from Firestore based on Id
   const deleteEntry = async () => {
     const docRef = doc(firebaseConfig.db, "entries", props.docId);
     try {
@@ -85,7 +77,7 @@ const Entry = (props) => {
       console.log(err);
     }
   };
-
+  // If deleted whole component is destroyed
   return deleted ? (
     <></>
   ) : (

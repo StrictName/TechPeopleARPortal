@@ -3,27 +3,20 @@ import React, { useEffect, useState } from "react";
 import Entry from "./Entry";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
-
-import {
-  collection,
-  addDoc,
-  setDoc,
-  getDocs,
-  where,
-  query,
-} from "firebase/firestore"; // import collection and addDoc functions from Firestore
+import { collection, addDoc, getDocs, where, query } from "firebase/firestore";
 
 function Home() {
-  const [userId, setUserId] = useState("");
   const [text, setText] = useState("");
+  // Pokemon number
   const [pokemon, setPokemon] = useState(0);
   const [entries, setEntries] = useState([]);
+  // Entry data and entry id need to be managed separately because db returns them as 2 elements
   const [entriesIds, setEntriesIds] = useState([]);
 
-  const [userIdGet, setUserIdGet] = useState(0);
   let navigate = useNavigate();
 
   useEffect(() => {
+    // Check if user is logged in
     if (
       localStorage.getItem("UI") == null ||
       localStorage.getItem("DN") == null
@@ -34,26 +27,22 @@ function Home() {
     }
   }, []);
 
-  const handleUserIdChange = (event) => {
-    setUserId(event.target.value);
-  };
-
-  const handleUserIdGetChange = (event) => {
-    setUserIdGet(event.target.value);
-  };
-
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
 
+  // Pokemon number needs to be in the following format: 001, 010, 100
   const parseInteger = (num) => {
     let str = num.toString();
     str = str.padStart(3, "0");
     return str;
   };
 
+  // Add entry to Firestore
   const add = async () => {
     const usersRef = collection(firebaseConfig.db, "entries");
+
+    // Only consider the first 700 Pokemon
     const pokemonNum = Math.floor(Math.random() * 700);
 
     try {
@@ -70,26 +59,23 @@ function Home() {
     }
   };
 
+  // Get entries from Firestore
   const get = async () => {
     setEntries([]);
     const entriesRef = collection(firebaseConfig.db, "entries");
-    console.log(userIdGet);
 
     const q = query(
       entriesRef,
       where("user_id", "==", localStorage.getItem("UI"))
     );
-    console.log(userIdGet);
-    // const querySnapshot =
-    //   userIdGet === "" || userIdGet === 0
-    //     ? await getDocs(entriesRef)
-    //     : await getDocs(q);
 
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().text}`);
+      // Storing entry data
       setEntries((entries) => [...entries, doc.data()]);
+      // Storing entry id
       setEntriesIds((entriesIds) => [...entriesIds, doc.id]);
     });
     console.log(entries);
@@ -107,12 +93,6 @@ function Home() {
           {" "}
           Enter a new ID with its corresponding text
         </p>
-        {/* <input
-          value={userId}
-          onChange={handleUserIdChange}
-          placeholder="User Id"
-          className=" w-1/2 mb-3 h-8 p-2 border rounded self-center "
-        /> */}
 
         <input
           value={text}
@@ -164,12 +144,7 @@ function Home() {
           <p className="text-white font-semibold pt-10 pb-3 text-sm md:text-base text-center mb-2 ">
             Enter the ID from which you want to obtain information
           </p>
-          {/* <input
-            value={userIdGet === 0 ? "" : userIdGet}
-            onChange={handleUserIdGetChange}
-            placeholder="User Id"
-            className="w-1/4 mb-3 h-8  border rounded mr-3 px-3 justify-center"
-          /> */}
+
           <button
             className=" bg-[#545454] hover:bg-[#539ddb] text-white font-bold md:text-base text-xs md:py-3 md:px-4 py-2 px-3 rounded border-white mb-6 "
             onClick={() => get()}
@@ -179,7 +154,7 @@ function Home() {
         </div>
 
         {entries.length !== 0 ? (
-          <table className=" border-collapse  bg-[#f7f5f5] mt-25 mx-5  w-full max-w-3xl mx-auto">
+          <table className=" border-collapse  bg-[#f7f5f5] mt-25 w-full max-w-3xl mx-auto">
             <th className=" bg-[#545454] text-slate-50 text-left p-2 ">Data</th>
             <th className=" bg-[#545454] text-slate-50 text-left p-2">Image</th>
 

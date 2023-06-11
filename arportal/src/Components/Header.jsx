@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
 
+  // Authorization works based on the variables in local storage if deleted
+  // user needs to log in again
   const logout = () => {
     localStorage.clear();
     setTimeout(() => {
